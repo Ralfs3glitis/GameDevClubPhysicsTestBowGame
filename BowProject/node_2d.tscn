@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://4pqund3nukl7"]
+
+[ext_resource type="Texture2D" uid="uid://cwqxrobi0m84a" path="res://Assets/clip-art-archery-bow-and-arrow-24.png" id="1_wtcfe"]
+[ext_resource type="Script" uid="uid://cpkw7mtw35ut0" path="res://bow.gd" id="2_0e48y"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_dmg0r"]
+
+[sub_resource type="Gradient" id="Gradient_0e48y"]
+colors = PackedColorArray(0, 0, 0.73929507, 1, 0.5, 1, 0.6333333, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_b8jil"]
+gradient = SubResource("Gradient_0e48y")
+
+[sub_resource type="BoxMesh" id="BoxMesh_4y640"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4y640"]
+size = Vector2(1, 1)
+
+[node name="Node2D" type="Node2D" unique_id=1925637466]
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="." unique_id=409234205]
+modulate = Color(1, 1, 1, 0.17400001)
+position = Vector2(682.5, 348)
+rotation = 3.1415927
+scale = Vector2(1587.5, -812.99994)
+mesh = SubResource("QuadMesh_dmg0r")
+texture = SubResource("GradientTexture1D_b8jil")
+
+[node name="Wall" type="StaticBody2D" parent="." unique_id=28826290]
+position = Vector2(975, 312)
+scale = Vector2(160.5, 548.5)
+
+[node name="MeshInstance2D" type="MeshInstance2D" parent="Wall" unique_id=1119862762]
+scale = Vector2(0.99999994, 1)
+mesh = SubResource("BoxMesh_4y640")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall" unique_id=275702330]
+shape = SubResource("RectangleShape2D_4y640")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1783036069]
+position = Vector2(730, 322)
+
+[node name="Button" type="Button" parent="Camera2D" unique_id=2147023039]
+offset_left = -517.0
+offset_top = 135.0
+offset_right = -333.0
+offset_bottom = 265.0
+text = "Fire"
+
+[node name="LineEdit" type="LineEdit" parent="Camera2D" unique_id=1634043201]
+offset_left = -501.0
+offset_top = 23.0
+offset_right = -356.0
+offset_bottom = 111.0
+alignment = 1
+caret_blink = true
+
+[node name="Bow" type="Sprite2D" parent="." unique_id=1585682935]
+position = Vector2(544, 306)
+scale = Vector2(0.26501766, 0.255)
+texture = ExtResource("1_wtcfe")
+script = ExtResource("2_0e48y")
+bow_speed = 5
+
+[connection signal="pressed" from="Camera2D/Button" to="Bow" method="_on_button_pressed"]
+[connection signal="text_changed" from="Camera2D/LineEdit" to="Bow" method="_on_line_edit_text_changed"]
